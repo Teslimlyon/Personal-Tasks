@@ -1,0 +1,10 @@
+applyTwice :: (a -> a) -> a -> a
+applyTwice f x = f (f x)
+
+half :: Int -> Int
+half x = x `div` 2
+
+main :: IO ()
+main = do
+  print $ applyTwice half 100
+  --Output 25
