@@ -1,0 +1,23 @@
+Symbol	Name	Function / Meaning	Example
+
+--	Single-line comment	Ignores everything after it on the line	-- comment here
+{- -}	Block comment	Multi-line comment	{- this is a \n block comment -}
+()	Unit	Represents "no value" (like void)	print ()
+[]	Empty list	A list with no elements	[] :: [Int]
+:	Cons operator	Adds an element to the front of a list	1 : [2,3]  -- [1,2,3]
+++	List concatenation	Joins two lists	[1,2] ++ [3,4]  -- [1,2,3,4]
+..	Range	Generates a list of numbers/chars in a sequence	[1..5]  -- [1,2,3,4,5]
+::	Type annotation	Specifies a type	x :: Int
+=>	Constraint arrow	Separates typeclass constraints	(Eq a) => a -> a -> Bool
+->	Function arrow	Input → Output in type signatures	add :: Int -> Int -> Int
+<-	Bind in do	Extracts value from a monadic action	line <- getLine
+>>=	Bind operator	Chains monadic computations	Just 3 >>= (\x -> Just (x+1))
+>>	Then operator	Runs two monadic actions, ignores first result	putStrLn "Hi" >> putStrLn "Bye"
+.	Function composition	Chains functions (right to left)	(show . (+1)) 5  -- "6"
+$	Application operator	Avoids parentheses	sum $ map (+1) [1..5]
+!!	List indexing	Gets element at index (0-based)	[10,20,30] !! 1  -- 20
+\	Lambda	Anonymous function	\x -> x + 1
+` `	Backticks	Turns function into infix operator	10 \div` 2  -- 5`
+`	`	Guard / Pattern separator	Conditional equations or alternatives
+_	Wildcard	Matches anything (ignore value)	f _ = "whatever"
+
