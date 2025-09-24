@@ -8,3 +8,4 @@ main :: IO ()
 main = do
   print $ applyTwice half 100
   --Output 25
+
