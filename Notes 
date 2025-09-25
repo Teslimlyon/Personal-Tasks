@@ -1,0 +1,67 @@
+🎨 RGB (Red, Green, Blue)
+
+RGB is a color model used in computers, screens, and digital graphics.
+
+Every color is represented as a mix of Red, Green, and Blue light.
+
+Each component (R, G, B) is an integer between 0 and 255.
+
+0 means no light of that color.
+
+255 means full intensity of that color.
+
+
+
+✅ Example:
+
+(255, 0, 0) = pure Red
+
+(0, 255, 0) = pure Green
+
+(0, 0, 255) = pure Blue
+
+(255, 255, 255) = White (all colors full)
+
+(0, 0, 0) = Black (no color)
+
+
+
+---
+
+🔢 Hexadecimal (Hex) Color Codes
+
+Hex is another way of writing colors, mostly used in HTML/CSS for web design.
+
+Instead of (R, G, B), you write a 6-digit hexadecimal number:
+
+Two digits for Red
+
+Two digits for Green
+
+Two digits for Blue
+
+
+Values go from 00 (0 in decimal) to FF (255 in decimal).
+
+
+✅ Example:
+
+(255, 0, 0) → #FF0000 (Red)
+
+(0, 255, 0) → #00FF00 (Green)
+
+(0, 0, 255) → #0000FF (Blue)
+
+(255, 255, 255) → #FFFFFF (White)
+
+(0, 0, 0) → #000000 (Black)
+
+
+
+---
+
+👉 In short:
+
+RGB: easy for humans ((R,G,B) with numbers).
+
+Hex: compact for computers/web (#RRGGBB).
