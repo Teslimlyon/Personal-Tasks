@@ -117,3 +117,80 @@ Blue 64 → "40"
 
 
 That’s why we use "%02X" — it guarantees each piece is exactly two hex digits, even if it’s less than 16.
+
+
+
+Key Points for Hex → RGB Conversion
+
+1. Hexadecimal system
+
+Hex uses base-16: digits 0–9 and letters A–F (or lowercase a–f).
+
+Each hex pair (2 digits) represents a number between 0 and 255.
+
+
+
+2. String structure
+
+A hex color is usually 6 characters long:
+
+First 2 chars → Red
+
+Next 2 chars → Green
+
+Last 2 chars → Blue
+
+
+Example: "FF007F" → "FF", "00", "7F"
+
+
+
+3. Optional # prefix
+
+CSS hex codes often start with "#".
+
+You should handle it by removing the # before parsing.
+
+
+
+4. Chunking
+
+Use splitAt 2 (or substring) to split into (RR, GG, BB).
+
+
+
+5. Hex → Decimal conversion
+
+Each 2-digit hex string must be converted into an integer (0–255).
+
+In Haskell, we used readHex for this.
+
+Example: "FF" → 255, "7F" → 127, "00" → 0.
+
+
+
+6. Return as a tuple
+
+Final RGB result is a triple: (r, g, b).
+
+
+
+
+
+---
+
+✅ Example Walkthrough: "FF007F"
+
+Split → "FF", "00", "7F"
+
+Convert → 255, 0, 127
+
+Result → (255, 0, 127)
+
+
+
+---
+
+👉 In short:
+
+Take the hex string → Split into pairs → Convert each to decimal → Return as RGB.
