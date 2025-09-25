@@ -64,4 +64,56 @@ Values go from 00 (0 in decimal) to FF (255 in decimal).
 
 RGB: easy for humans ((R,G,B) with numbers).
 
-Hex: compact for computers/web (#RRGGBB).
+Hex: compact for computers/web (#RRGGBB)
+.
+
+
+Meaning of "%02X"
+
+1. % → says: “I’m going to format a value here”.
+
+
+2. 0 → means: “pad with zeros if the number is shorter”.
+
+
+3. 2 → means: “make the width at least 2 characters”.
+
+
+4. X → means: “print the number in hexadecimal, with uppercase letters”.
+
+
+
+
+---
+
+✅ Examples
+
+import Text.Printf (printf)
+
+main = do
+  printf "%02X\n" (5 :: Int)     -- "05"
+  printf "%02X\n" (15 :: Int)    -- "0F"
+  printf "%02X\n" (255 :: Int)   -- "FF"
+
+5 → "05" (two characters, padded with 0)
+
+15 → "0F" (hex for 15 is F, but padded to 2 chars)
+
+255 → "FF"
+
+
+
+---
+
+🔎 Why it’s useful in RGB → Hex
+
+Since each color component must always be two digits in hex:
+
+Red 0 → "00"
+
+Green 255 → "FF"
+
+Blue 64 → "40"
+
+
+That’s why we use "%02X" — it guarantees each piece is exactly two hex digits, even if it’s less than 16.
