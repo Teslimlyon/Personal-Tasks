@@ -9,3 +9,12 @@ main = do
   print $ applyTwice half 100
   --Output 25
 
+
+
+
+To compare that remainder to something (like 0), you must use a comparison operator:
+
+== → checks if they are equal
+
+/= → checks if they are not equal
+
