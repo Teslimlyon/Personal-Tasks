@@ -1,0 +1,96 @@
+🎓 DecentraLearn: Stake-to-Learn Protocol A decentralized educational platform on Cardano where students stake ADA to commit to learning, and educators verify progress on-chain.
+
+DecentraLearn gamifies education by requiring a financial commitment (stake) from the student. As they pass quizzes and complete lessons, an educator (or oracle) verifies their progress on the blockchain. Upon graduation, the student reclaims their stake plus earned rewards, while the educator receives a service fee.
+
+🌐 Live Demo: https://learn-to-earn-seven.vercel.app
+
+✨ Features
+🔒 Stake-to-Learn Model: Students must lock ADA to enroll, ensuring commitment.
+✅ Educator Verification: Lesson progress is cryptographically signed and updated on-chain by the educator.
+🧬 Inline Datum: All course progress (lessons completed, notes) is stored directly on the UTXO.
+🎮 Gamification: Built-in XP system, levels, and badge unlocking based on chain state.
+⚡ Lucid SDK: Fully client-side interaction using the latest Lucid 0.10+ stack.
+💰 Automated Payouts: Smart contract handles the distribution of Stake (Student), Rewards (Student), and Fees (Educator).
+🛠️ Tech Stack
+Blockchain: Cardano Preprod Testnet
+SDK: Lucid Cardano (Web integration)
+Smart Contract: Plutus V2 (Raw CBOR integration)
+Data Provider: Blockfrost API
+Wallet Standard: CIP-30 (Lace, Nami, Eternl)
+Frontend: Vanilla JS (ES Modules) + HTML/CSS
+📋 Requirements
+Cardano Wallet: Browser extension (e.g., Lace).
+Testnet ADA: Fund your wallet via the Cardano Faucet.
+Modern Browser: Chrome, Brave, or Edge.
+Blockfrost Key: A Preprod project ID (included in code, but recommended to use your own).
+🚀 How to Use
+1. Connect Wallet
+Click the "Connect Wallet" button. The app will initialize Lucid, connect to Blockfrost, and derive the Smart Contract address.
+
+2. Browse & Enroll
+Navigate to the Catalog.
+Select a course (e.g., Intro to Cardano).
+Action: Click "Enroll & Stake".
+On-Chain: This locks your Stake + Educator Fee + Reward Buffer into the script address with a specific Datum.
+3. Learn & Quiz
+Watch the lesson content.
+Take the multiple-choice quiz.
+Action: Upon passing, the system requests a transaction.
+Note: In this demo, the connected wallet acts as both Student and Educator ("Self-Taught Mode") to sign the verification.
+4. Educator Verification
+Navigate to the Educator Dashboard.
+Scan for students enrolled in your courses.
+Action: Click "Verify Lesson" to update the student's on-chain datum (increment lessonsDone).
+5. Graduate & Claim
+Once lessonsDone equals totalLessons (10/10):
+Action: Click "Graduate & Claim".
+On-Chain: The script validates completion, returns the Stake + Rewards to the Student, and sends the Fee to the Educator.
+🧠 Smart Contract & Data Structure
+Network: Cardano Preprod Validator: Plutus V2
+
+💾 Datum Schema (State)
+The state of every enrollment is stored publicly on-chain:
+
+const EduDatum = Data.Object({
+    student: Data.Bytes(),         // Student's PubKeyHash
+    educator: Data.Bytes(),        // Educator's PubKeyHash
+    stakeAmount: Data.Integer(),   // Lovelace staked by student
+    educatorFee: Data.Integer(),   // Fee reserved for educator
+    lessonsDone: Data.Integer(),   // Current progress (0-10)
+    totalLessons: Data.Integer(),  // Target lessons
+    rewardPerLesson: Data.Integer(), // Reward accumulated per lesson
+    lessonNotes: Data.Array(Data.Bytes()) // Optional metadata
+});
+⚙️ Redeemers (Actions)
+The smart contract handles three specific state transitions:
+
+Action	Index	Description
+Enroll	Constr(0)	Creates the initial UTXO with the student/educator configuration.
+Complete	Constr(1)	Requires Educator Signature. Increments lessonsDone. Checks that other fields remain unchanged.
+Claim	Constr(2)	Requires Student Signature. Validates that lessonsDone == totalLessons. Splits the UTXO value between Student and Educator.
+🧪 Testing Checklist
+Enrollment:
+Verify funds leave wallet.
+Verify Script Address receives UTXO with correct Inline Datum.
+Progress:
+Complete a quiz.
+Verify the "Verify Lesson" transaction updates lessonsDone in the Datum (visible on Explorer).
+Gamification:
+Check that XP bar increases in the UI after verification.
+Graduation:
+Ensure "Graduate" button only appears after Lesson 10.
+Verify the final transaction consumes the script UTXO and distributes funds correctly.
+🔧 Configuration
+To run this locally, ensure your BLOCKFROST_KEY is set in the code:
+
+const BLOCKFROST_URL = "https://cardano-preprod.blockfrost.io/api/v0";
+const BLOCKFROST_KEY = "YOUR_PREPROD_KEY_HERE";
+Note: The script CBOR provided in the source is a pre-compiled Plutus binary. Ensure you are using the matching Datum structure, or validation will fail.
+
+📜 License
+MIT License Open source educational tool for the Cardano Community.
+
+👨‍💻 Author
+Teslim lyon
+
+Built with Lucid SDK + Plutus V2
